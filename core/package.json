@@ -2,8 +2,15 @@
   "name": "ditto",
   "version": "1.0.0",
   "description": "An Easy to Use Programming Language",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "bin": "./bin/ditto.js",
   "repository": "https://github.com/BananiumLabs/Ditto",
   "author": "Bananium Labs",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "tokenizer": "^1.1.2"
+  },
+  "scripts": {
+    "build-ne": "nearleyc ./lib/grammar/grammar.ne -o ./lib/grammar/grammar.js"
+  }
 }
