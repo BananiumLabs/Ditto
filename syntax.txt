@@ -1,0 +1,15 @@
+// var def + init
+thisVar is "hello"
+thisVar is "hello"
+
+// function def
+thisFunction(x, y, z) does
+    give x + y + z
+
+OR
+
+thisFunction takes (x, y, z), does
+    return x + y + z
+
+//function calling
+call thisFunction(1, 2, 3)
