@@ -164,6 +164,25 @@ module.exports = function(ditto) {
                     //appending the content
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
                 }
+            },
+            {/*Prompt for IO*/
+                regex: /ask ".{0,}" for [A-z_]{0}\S.{0,}/g,
+                command: function (path, line) {
+                    var tokenized_line = ditto.convert.tokenize(line)
+                    questionArray = tokenized_line.slice(1, tokenized_line.length - 2)
+                    var variableName = tokenized_line[tokenized_line.length - 1]
+                    var question = ""
+
+                    //Parse for function by combining the array elements
+                    for (i = 0; i < questionArray.length; i++) {
+                        question = question + " " + questionArray[i]
+                    }
+                    console.log(variableName);
+                    console.log(questionArray)
+                    fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + "var " + variableName
+                        + " = readline.question(" + question + ")\n")
+
+                }
             }
         ],
         compile: function(path) {
