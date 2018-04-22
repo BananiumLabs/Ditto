@@ -15,7 +15,7 @@ program
     .action(function (filepath, cmd) {
         ditto.compile(filepath)
         if (cmd.js !== true) {
-            ditto.JsToBinary()
+            ditto.JsToBinary(ditto.getJsPath(filepath))
         }
     })
 
