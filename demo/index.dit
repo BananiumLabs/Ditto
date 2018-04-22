@@ -1,0 +1,7 @@
+counter is 0
+myFunc does:
+    counter is counter+1
+    document.getElementById("display").innerHTML is counter
+
+
+call document.getElementById("button").addEventListener("click", myFunc)

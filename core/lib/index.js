@@ -52,7 +52,7 @@ var ditto = {
             regex: /[A-z_]{1}\S{0,} is \S{1,}/g,
             command: function(path, line) {
                 var tokenized_line = ditto.tokenize(line)
-                var line_to_write = "var " + tokenized_line[0] + " = "
+                var line_to_write = "" + tokenized_line[0] + " = "
                 tokenized_line.shift()
                 tokenized_line.shift()
                 line_to_write = line_to_write + tokenized_line.join(" ") + ";\n"
@@ -253,7 +253,7 @@ var ditto = {
         }
 
         //compiling all the js
-        webpack({
+        /*webpack({
             entry: pathModule.resolve(ditto.getJsPath(path)),
             output: {
                 path: pathModule.resolve(pathModule.dirname(path)),
@@ -262,7 +262,7 @@ var ditto = {
         }, (err, stats) => {
             //console.log(err)
             //console.log(stats)
-        })
+        })*/
     },
     JsToBinary: function(path) {
         new exec([path, "--target", "host"])
