@@ -30,14 +30,8 @@ module.exports = function(ditto) {
             tokens.push(current_token)
 
             //gets rid of an "" that might exist in the tokens list
-            bad_tokens = true
-            while (bad_tokens === true) {
-                if (tokens.indexOf("") !== -1) {
-                    tokens.splice(tokens.indexOf(""), 1)
-                }
-                if (tokens.indexOf("") === -1) {
-                    bad_tokens = false
-                }
+            while (tokens.indexOf("") !== -1) {
+                tokens.splice(tokens.indexOf(""), 1)
             }
             return tokens
         },
