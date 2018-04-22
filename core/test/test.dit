@@ -3,8 +3,11 @@ test is 10
 name takes (x) then does:
     testq2 is 21940
     test9 is 2
+    write test9
 
 food is 'good'
 
 for i in 0 through 10 do:
     write i
+
+call name("hi")

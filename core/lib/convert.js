@@ -4,7 +4,6 @@ Low level parsing and converting business
 
 var fs = require("fs")
 var pathModule = require("path")
-var randomstring = require("randomstring")
 
 module.exports = function(ditto) {
     ditto.convert = {
@@ -121,7 +120,15 @@ module.exports = function(ditto) {
                     //appending the content
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
                 }
-            }
+            },
+            { /*call a function*/
+                regex: /call \S.+\(.+\)/g,
+                command: function(path, line) {
+                    var tokenized_line = ditto.convert.tokenize(line)
+                    var line_to_write = tokenized_line[1]
+                    fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write + ";\n")
+                }
+            },
         ],
         compile: function(path) {
             //this absolute joy writes an empty build file in the same directory that's js and the same base name as the .dit file
