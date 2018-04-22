@@ -1,17 +1,2 @@
-myFunc does:
-    write "hey"
-
-thisFunc takes (x) then does:
-    write x
-
-
-a is "hello"
-
-call myFunc()
-call thisFunc(a)
-
-sum is 0
-
 for i in 0 through 10 do:
-    sum is sum+i
-write sum
+    write i

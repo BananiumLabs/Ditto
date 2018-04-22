@@ -2,22 +2,13 @@
 I run
 I have
 
-//import modules or other files
-I use "module.dit"
-I use "module.dit" as foo
-
 // var def + init
 thisVar is "hello"
 thisVar is 10
 thisVar is True
 
 // function def
-thisFunction(x, y, z) does
-    return x + y + z
-
-OR
-
-thisFunction takes (x, y, z), does:
+thisFunction takes (x, y, z) does:
     return x + y + z
 
 //function calling

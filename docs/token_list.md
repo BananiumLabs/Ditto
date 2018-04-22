@@ -5,8 +5,6 @@
 * I
     * run
     * have
-    * use
-        * as
         
 ## Constants
 * True
