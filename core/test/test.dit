@@ -5,3 +5,5 @@ name takes (x) then does:
     test9 is 2
 
 food is 'good'
+
+write "hello world"

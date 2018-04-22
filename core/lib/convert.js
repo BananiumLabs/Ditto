@@ -2,8 +2,8 @@
 Low level parsing and converting business
 */
 
-var fs = require("fs");
-var pathModule = require("path");
+var fs = require("fs")
+var pathModule = require("path")
 var randomstring = require("randomstring")
 
 module.exports = function(ditto) {
@@ -78,6 +78,26 @@ module.exports = function(ditto) {
                 command: function(path, line) {
                     //appending the content
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line + ";\n")
+                }
+            },
+            { /*write function (print)*/
+                regex: /write (.*)/g,
+                command: function(path, line) {
+                    var tokenized_line = ditto.convert.tokenize(line)
+                    tokenized_line.shift()
+                    console.log(tokenized_line)
+                    
+                    var line_to_write = "console.log("
+                    for (var i=0; i<tokenized_line.length; i++) {
+                        line_to_write = line_to_write + tokenized_line[i]
+                        if (i+1 != tokenized_line.length) {
+                            line_to_write = line_to_write + " "
+                        }
+                    }
+                    line_to_write = line_to_write + ");\n"
+
+                    //appending the content
+                    fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
                 }
             }
         ],
