@@ -241,12 +241,18 @@ var ditto = {
 
                     //running the matched regex's command
                     ditto.regexList[r].command(path, lines[i])
+
+                    //used in order to do a final curly bracket appending if it's needed
+                    if (lines[i+1] === undefined && current_indents !== 0) {
+                        console.log("nice")
+                        fs.writeFileSync(ditto.getJsPath(path), fs.readFileSync(ditto.getJsPath(path), "utf8") + "}\n")
+                    }
                 }
             }
         }
 
         //compiling all the js
-        webpack({
+        /*webpack({
             entry: pathModule.resolve(ditto.getJsPath(path)),
             output: {
                 path: pathModule.resolve(pathModule.dirname(path)),
@@ -255,7 +261,7 @@ var ditto = {
         }, (err, stats) => {
             //console.log(err)
             //console.log(stats)
-        })
+        })*/
     }
 }
 

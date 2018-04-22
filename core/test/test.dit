@@ -1,3 +1,5 @@
-wow is "hello world"
+myFunc does:
+    write "hey"
 
-write wow
+thisFunc takes (x) then does:
+    write "nice"
