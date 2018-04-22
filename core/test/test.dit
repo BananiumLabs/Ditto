@@ -7,6 +7,11 @@ name takes (x) then does:
 
 food is 'good'
 
+if test==10 do:
+    write "If Works"
+else do:
+    write "Else"
+
 for i in 0 through 10 do:
     write i
 

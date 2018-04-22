@@ -138,6 +138,26 @@ module.exports = function(ditto) {
                     //appending the content
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
                 }
+            },
+            {/*if statement recognization*/
+                regex: /if \S.{1,} do/g,
+                command: function (path, line) {
+                    var tokenized_line = ditto.convert.tokenize(line)
+                    var line_to_write = tokenized_line[1]
+
+                    fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + "if (" + line_to_write + ") {\n")
+
+                }
+            },
+            {/*Else Do statement*/
+                regex: /else do:/g,
+                command: function (path, line) {
+                    var tokenized_line = ditto.convert.tokenize(line)
+                    var line_to_write = tokenized_line[1]
+
+                    fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + "else {\n")
+
+                }
             }
         ],
         compile: function(path) {
