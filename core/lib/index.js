@@ -133,11 +133,11 @@ var ditto = {
             regex: /if \S.{1,} do/g,
             command: function (path, line) {
                 var tokenized_line = ditto.tokenize(line)
-                if (tokenized_line[2] === "=") {
-                    tokenized_line[2] = "==="
+                if (tokenized_line[1] === "=") {
+                    tokenized_line[1] = "==="
                 }
 
-                var line_to_write = "if (" + tokenized_line[1] + tokenized_line[2]
+                var line_to_write = "if (" + tokenized_line[1]
                 
                 tokenized_line.pop()
                 tokenized_line.shift()
@@ -145,7 +145,6 @@ var ditto = {
                 tokenized_line.shift()
                 
                 line_to_write = line_to_write + tokenized_line.join(" ") + ") {\n"
-
                 fs.writeFileSync(ditto.getJsPath(path), fs.readFileSync(ditto.getJsPath(path), "utf8")+ line_to_write)
 
             }
@@ -184,6 +183,7 @@ var ditto = {
                 for (i = 0; i < questionArray.length; i++) {
                     question = question + " " + questionArray[i]
                 }
+
                 fs.writeFileSync(ditto.getJsPath(path), fs.readFileSync(ditto.getJsPath(path), "utf8") + "var " + variableName
                     + " = readline.question(" + question + ")\n")
 
@@ -253,7 +253,7 @@ var ditto = {
         }
 
         //compiling all the js
-        webpack({
+        /*webpack({
             entry: pathModule.resolve(ditto.getJsPath(path)),
             output: {
                 path: pathModule.resolve(pathModule.dirname(path)),
@@ -262,7 +262,7 @@ var ditto = {
         }, (err, stats) => {
             //console.log(err)
             //console.log(stats)
-        })
+        })*/
     },
     JsToBinary: function(path) {
         new exec([path, "--target", "host"])
