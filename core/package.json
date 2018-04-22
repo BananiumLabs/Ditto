@@ -8,12 +8,8 @@
   "author": "Bananium Labs",
   "license": "MIT",
   "dependencies": {
+    "random-string": "^0.2.0",
+    "readline-sync": "^1.4.9",
     "webpack": "^4.6.0"
-  },
-  "scripts": {
-    "build-ne": "nearleyc ./lib/grammar/grammar.ne -o ./lib/grammar/grammar.js"
-  },
-  "devDependencies": {
-    "browserify": "^16.2.0"
   }
 }

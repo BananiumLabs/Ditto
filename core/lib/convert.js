@@ -150,16 +150,7 @@ module.exports = function(ditto) {
                     var tokenized_line = ditto.convert.tokenize(line)
 
                     tokenized_line[2] = tokenized_line[2].slice(1, -1)
-
-                    if (tokenized_line[2].endsWith(".js") || tokenized_line[2].endsWith(".dit")) {
-                        var module_path_js = "./" + tokenized_line[2].slice(0, -4) + ".js"
-                        var module_path_dit = "./" + tokenized_line[2].slice(0, -4) + ".dit"
-                        var line_to_write = "var " + tokenized_line.pop() + " = require('" + module_path_js + "');\n"
-
-                        ditto.convert.compile(module_path_dit)
-                    } else {
-                        var line_to_write = "var " + tokenized_line.pop() + " = require('" + tokenized_line[2] + "');\n"
-                    }
+                    var line_to_write = "var " + tokenized_line.pop() + " = require('" + tokenized_line[2] + "');\n"
 
                     //appending the content
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
@@ -177,8 +168,6 @@ module.exports = function(ditto) {
                     for (i = 0; i < questionArray.length; i++) {
                         question = question + " " + questionArray[i]
                     }
-                    console.log(variableName);
-                    console.log(questionArray)
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + "var " + variableName
                         + " = readline.question(" + question + ")\n")
 
@@ -243,7 +232,7 @@ module.exports = function(ditto) {
 
             //compiling all the js
             webpack({
-                entry: ditto.convert.getJsPath(path),
+                entry: pathModule.resolve(ditto.convert.getJsPath(path)),
                 output: {
                     path: pathModule.resolve(pathModule.dirname(path)),
                     filename: "compiled.js"

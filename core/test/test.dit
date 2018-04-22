@@ -1,22 +1,3 @@
-test is 10
+I use "random-string" as ran
 
-name takes (x) then does:
-    testq2 is 21940
-    test9 is 2
-    write x
-
-food is 'good'
-
-if test==10 do:
-    write "If Works"
-else do:
-    write "Else"
-
-for i in 0 through 10 do:
-    write i
-
-call name("hello")
-
-I use "fs" as fs
-
-write fs.readFileSync("./thing.txt", "utf8")
+write ran()
