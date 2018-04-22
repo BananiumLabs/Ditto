@@ -17,4 +17,6 @@ for i in 0 through 10 do:
 
 call name("hello")
 
-I use "thing.dit" as here
+I use "fs" as fs
+
+write fs.readFileSync("./thing.txt", "utf8")

@@ -158,7 +158,7 @@ module.exports = function(ditto) {
 
                         ditto.convert.compile(module_path_dit)
                     } else {
-                        var line_to_write = "var " + tokenized_line.pop() + " = require('" + tokenized_line[2].slice(1, -1) + "');\n"
+                        var line_to_write = "var " + tokenized_line.pop() + " = require('" + tokenized_line[2] + "');\n"
                     }
 
                     //appending the content
@@ -242,7 +242,6 @@ module.exports = function(ditto) {
             }
 
             //compiling all the js
-            /*
             webpack({
                 entry: ditto.convert.getJsPath(path),
                 output: {
@@ -252,7 +251,7 @@ module.exports = function(ditto) {
             }, (err, stats) => {
                 //console.log(err)
                 //console.log(stats)
-            })*/
+            })
         }
     }
 }
