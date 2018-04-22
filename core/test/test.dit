@@ -3,3 +3,5 @@ myFunc does:
 
 thisFunc takes (x) then does:
     write "nice"
+
+call myFunc()

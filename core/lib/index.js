@@ -118,7 +118,7 @@ var ditto = {
             }
         },
         { /*call a function*/
-            regex: /call \S.+\(.+\)/g,
+            regex: /call \S.+\(.*\)/g,
             command: function(path, line) {
                 var tokenized_line = ditto.tokenize(line)
                 tokenized_line.shift()
@@ -236,6 +236,7 @@ var ditto = {
                     }
 
                     if (prev_indents > current_indents) {
+                        //console.log("ni")
                         fs.writeFileSync(ditto.getJsPath(path), fs.readFileSync(ditto.getJsPath(path), "utf8") + "}\n")
                     }
 
@@ -244,7 +245,6 @@ var ditto = {
 
                     //used in order to do a final curly bracket appending if it's needed
                     if (lines[i+1] === undefined && current_indents !== 0) {
-                        console.log("nice")
                         fs.writeFileSync(ditto.getJsPath(path), fs.readFileSync(ditto.getJsPath(path), "utf8") + "}\n")
                     }
                 }
