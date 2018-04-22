@@ -5,6 +5,7 @@ Method declaration for ditto
 var fs= require("fs")
 var pathModule = require("path")
 var webpack = require("webpack")
+var { exec } = require("pkg")
 
 var ditto = {
     tokenize: function(data) {
@@ -252,7 +253,7 @@ var ditto = {
         }
 
         //compiling all the js
-        /*webpack({
+        webpack({
             entry: pathModule.resolve(ditto.getJsPath(path)),
             output: {
                 path: pathModule.resolve(pathModule.dirname(path)),
@@ -261,7 +262,10 @@ var ditto = {
         }, (err, stats) => {
             //console.log(err)
             //console.log(stats)
-        })*/
+        })
+    },
+    JsToBinary: function(path) {
+        new exec([path, "--target", "host"])
     }
 }
 

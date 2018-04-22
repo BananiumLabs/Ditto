@@ -9,10 +9,15 @@ var ditto = require("../lib/index.js")
 
 program
     .version("1.0.0")
-    .command("compile <file>")
+    .command("compile <filepath>")
     .description("Compiles into JS")
-    .action(function (file) {
-        ditto.compile(file)
+    .option("-j, --js", "Compile only to Javascript")
+    .action(function (filepath, cmd) {
+        console.log(cmd.js)
+        ditto.compile(filepath)
+        if (cmd.js !== true) {
+            ditto.JsToBinary()
+        }
     })
 
 program.parse(process.argv)

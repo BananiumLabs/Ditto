@@ -1,7 +1,0 @@
-myFunc does:
-    write "hey"
-
-thisFunc takes (x) then does:
-    write "nice"
-
-call myFunc()
