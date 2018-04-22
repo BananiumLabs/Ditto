@@ -13,11 +13,13 @@ module.exports = function(ditto) {
             var current_char = ""
             for (var i=0; i<data.length+1; i++) {
                 current_char = data.substring(i, i+1)
-                if (current_char != " ") {
+                if (current_char != ' ') {
                     current_token = current_token + current_char
+                    continue;
                 }
                 if (current_char === "\t") {
                     current_token = current_token + current_char
+                    continue;
                 }
                 if (current_char === " " || current_char === "\n") {
                     tokens.push(current_token)
@@ -90,7 +92,7 @@ module.exports = function(ditto) {
             if (data.indexOf("\t") !== -1) {
                 tabtype = "\t"
             } else {
-                tabtype = "    "
+                tabtype = "\s\s\s\s"
             }
 
             var lines = data.split(/\n/)
@@ -117,7 +119,7 @@ module.exports = function(ditto) {
 
                         //calculating whether or not a curly bracket is needed
                         prev_indents = current_indents
-                        if (tabtype === "    ") {
+                        if (tabtype === "\s\s\s\s") {
                             current_indents = (lines[i].match(/    /g) || []).length
                         }
                         if (tabtype === "\t") {
