@@ -4,10 +4,11 @@ Low level parsing and converting business
 
 var fs = require("fs");
 var pathModule = require("path");
+var randomstring = require("randomstring")
 
 module.exports = function(ditto) {
     ditto.convert = {
-        stripWhitespace: function(data) {
+        tokenize: function(data) {
             var tokens = []
             var current_token = ""
             var current_char = ""
@@ -37,7 +38,7 @@ module.exports = function(ditto) {
             { /*var def*/
                 regex: /[A-z_]{1}\S{0,} is \S{1,}/g,
                 command: function(path, line) {
-                    var tokenized_line = ditto.convert.stripWhitespace(line)
+                    var tokenized_line = ditto.convert.tokenize(line)
                     var line_to_write = "var " + tokenized_line[tokenized_line.length - 3] + " = " + tokenized_line[tokenized_line.length-1] + ";\n"
                     
                     //appending the content
@@ -47,7 +48,7 @@ module.exports = function(ditto) {
             { /*function def*/
                 regex: /[A-z_]{1}\S{0,} takes(.{1,}) then does:/g,
                 command: function(path, line) {
-                    var tokenized_line = ditto.convert.stripWhitespace(line)
+                    var tokenized_line = ditto.convert.tokenize(line)
                     var line_to_write = "var " + tokenized_line[0] + " = function"
                     if (tokenized_line.length > 3) {
                         tokenized_line.shift()
@@ -64,7 +65,7 @@ module.exports = function(ditto) {
             { /*function def 2*/
                 regex: /[A-z_]{1}\S{0,} does:/g,
                 command: function(path, line) {
-                    var tokenized_line = ditto.convert.stripWhitespace(line)
+                    var tokenized_line = ditto.convert.tokenize(line)
                     var line_to_write = "var " + tokenized_line[0] + " = function() {\n"
                     if (3 > tokenized_line.length) {
                         //appending the content
