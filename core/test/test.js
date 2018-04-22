@@ -4,4 +4,7 @@ var testq2 = 21940;
 var test9 = 2;
 }
 var food = 'good';
-console.log("hello world");
+for (var i = 0; i<10;i++) {
+console.log(i);
+}
+console.log(food);

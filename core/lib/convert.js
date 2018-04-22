@@ -28,6 +28,18 @@ module.exports = function(ditto) {
                 }
             }
             tokens.push(current_token)
+
+            //gets rid of an "" that might exist in the tokens list
+            bad_tokens = true
+            while (bad_tokens === true) {
+                console.log(tokens)
+                if (tokens.indexOf("") !== -1) {
+                    tokens.splice(tokens.indexOf(""), 1)
+                }
+                if (tokens.indexOf("") === -1) {
+                    bad_tokens = false
+                }
+            }
             return tokens
         },
         getJsPath: function(path) {
@@ -84,8 +96,8 @@ module.exports = function(ditto) {
                 regex: /write (.*)/g,
                 command: function(path, line) {
                     var tokenized_line = ditto.convert.tokenize(line)
-                    tokenized_line.shift()
                     console.log(tokenized_line)
+                    tokenized_line.shift()
                     
                     var line_to_write = "console.log("
                     for (var i=0; i<tokenized_line.length; i++) {
@@ -95,6 +107,16 @@ module.exports = function(ditto) {
                         }
                     }
                     line_to_write = line_to_write + ");\n"
+
+                    //appending the content
+                    fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
+                }
+            },
+            { /*for expression*/
+                regex: /for [A-z_]{1}.{0,} in \d+ through \d+ do:/g,
+                command: function(path, line) {
+                    var tokenized_line = ditto.convert.tokenize(line)
+                    var line_to_write = "for (var " + tokenized_line[1] + " = " + tokenized_line[3] + "; " + tokenized_line[1] + "<" + tokenized_line[5] + ";" + tokenized_line[1] + "++) {\n"
 
                     //appending the content
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
@@ -111,6 +133,7 @@ module.exports = function(ditto) {
             //getting it's tab type before running anything else
             var tabtype
             if (data.indexOf("\t") !== -1) {
+                console.log
                 tabtype = "\t"
             } else {
                 tabtype = "\s\s\s\s"

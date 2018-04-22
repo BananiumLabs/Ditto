@@ -35,16 +35,19 @@ else do:
 for i in 0 through 10 do:
     write i
 
+//while
 while i < num do:
     stuff
     i++
 
+//dowhile
 dowhile i < num do:
     stuff
     i++
 
 int x;
 
+//switch
 if x:
     is 4 do:
         stuff

@@ -6,4 +6,5 @@ name takes (x) then does:
 
 food is 'good'
 
-write "hello world"
+for i in 0 through 10 do:
+    write i
