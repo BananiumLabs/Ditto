@@ -4,6 +4,7 @@ Low level parsing and converting business
 
 var fs = require("fs")
 var pathModule = require("path")
+var webpack = require("webpack")
 
 module.exports = function(ditto) {
     ditto.convert = {
@@ -29,8 +30,14 @@ module.exports = function(ditto) {
             tokens.push(current_token)
 
             //gets rid of an "" that might exist in the tokens list
-            while (tokens.indexOf("") !== -1) {
-                tokens.splice(tokens.indexOf(""), 1)
+            bad_tokens = true
+            while (bad_tokens === true) {
+                if (tokens.indexOf("") !== -1) {
+                    tokens.splice(tokens.indexOf(""), 1)
+                }
+                if (tokens.indexOf("") === -1) {
+                    bad_tokens = false
+                }
             }
             return tokens
         },
@@ -123,16 +130,6 @@ module.exports = function(ditto) {
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write + ";\n")
                 }
             },
-            {
-                regex: /I use ".{1,}\.dit" as .{1,}/g,
-                command: function(path, line) {
-                    var tokenized_line = ditto.convert.tokenize(line)
-                    var line_to_write = "var " + tokenized_line.pop() + " = require(" + tokenized_line[2] + ");\n"
-
-                    //appending the content
-                    fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
-                }
-            },
             {/*if statement recognization*/
                 regex: /if \S.{1,} do/g,
                 command: function (path, line) {
@@ -151,6 +148,27 @@ module.exports = function(ditto) {
 
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + "else {\n")
 
+                }
+            },
+            { /*i use ~module*/
+                regex: /I use ".{1,}" as .{1,}/g,
+                command: function(path, line) {
+                    var tokenized_line = ditto.convert.tokenize(line)
+
+                    tokenized_line[2] = tokenized_line[2].slice(1, -1)
+
+                    if (tokenized_line[2].endsWith(".js") || tokenized_line[2].endsWith(".dit")) {
+                        var module_path_js = "./" + tokenized_line[2].slice(0, -4) + ".js"
+                        var module_path_dit = "./" + tokenized_line[2].slice(0, -4) + ".dit"
+                        var line_to_write = "var " + tokenized_line.pop() + " = require('" + module_path_js + "');\n"
+
+                        ditto.convert.compile(module_path_dit)
+                    } else {
+                        var line_to_write = "var " + tokenized_line.pop() + " = require('" + tokenized_line[2].slice(1, -1) + "');\n"
+                    }
+
+                    //appending the content
+                    fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
                 }
             }
         ],
@@ -209,6 +227,19 @@ module.exports = function(ditto) {
                     }
                 }
             }
+
+            //compiling all the js
+            /*
+            webpack({
+                entry: ditto.convert.getJsPath(path),
+                output: {
+                    path: pathModule.resolve(pathModule.dirname(path)),
+                    filename: "compiled.js"
+                }
+            }, (err, stats) => {
+                //console.log(err)
+                //console.log(stats)
+            })*/
         }
     }
 }
