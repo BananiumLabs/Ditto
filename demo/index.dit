@@ -1,6 +1,6 @@
-counter is 0
+counter is 2
 myFunc does:
-    counter is counter+1
+    counter is counter*counter
     document.getElementById("display").innerHTML is counter
 
 
