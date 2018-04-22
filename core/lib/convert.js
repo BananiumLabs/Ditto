@@ -38,7 +38,7 @@ module.exports = function(ditto) {
                 regex: /[A-z_]{1}\S{0,} is \S{1,}/g,
                 command: function(path, line) {
                     var tokenized_line = ditto.convert.stripWhitespace(line)
-                    var line_to_write = "var " + tokenized_line[0] + " = " + tokenized_line[2] + ";\n"
+                    var line_to_write = "var " + tokenized_line[tokenized_line.length - 3] + " = " + tokenized_line[tokenized_line.length-1] + ";\n"
                     
                     //appending the content
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
