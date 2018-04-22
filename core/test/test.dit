@@ -1,9 +1,10 @@
+write "Hello, World"
+
 myFunc does:
     write "hey"
 
 thisFunc takes (x) then does:
     write x
-
 
 a is "hello"
 
@@ -11,15 +12,13 @@ call myFunc()
 call thisFunc(a)
 
 b is "four"
-if b is "three"
+if b==="three" do:
     write 3
-else if b is "five"
-    write 5
-else
+else do:
     write 4
-
 
 sum is 0
 
 for i in 0 through 10 do:
-    write i
+    sum is sum+i
+write sum
