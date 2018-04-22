@@ -6,6 +6,9 @@
   "bin": {
     "dit": "./bin/dit.js"
   },
+  "scripts": {
+    "build": "pkg bin/dit.js"
+  },
   "repository": "https://github.com/BananiumLabs/Ditto",
   "author": "Bananium Labs",
   "license": "MIT",
