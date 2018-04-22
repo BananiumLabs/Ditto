@@ -2,8 +2,6 @@ var ditto = {
     
 }
 
-require("./convert.js")(ditto);
-
-ditto.convert.compile('./../../test.dit');
+require("./convert.js")(ditto)
 
 module.exports = ditto
