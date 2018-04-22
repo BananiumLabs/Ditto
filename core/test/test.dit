@@ -1,17 +1,15 @@
-test is 11
+test is 10
 
 name takes (x) then does:
     testq2 is 21940
     test9 is 2
-    write test9
+    write x
 
 food is 'good'
 
-if test==10 do:
-    write "If Called"
-else do:
-    write "Else Called"
 for i in 0 through 10 do:
     write i
 
-call name("hi")
+call name("hello")
+
+I use "thing.dit" as here

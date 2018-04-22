@@ -31,7 +31,6 @@ module.exports = function(ditto) {
             //gets rid of an "" that might exist in the tokens list
             bad_tokens = true
             while (bad_tokens === true) {
-                console.log(tokens)
                 if (tokens.indexOf("") !== -1) {
                     tokens.splice(tokens.indexOf(""), 1)
                 }
@@ -95,7 +94,6 @@ module.exports = function(ditto) {
                 regex: /write (.*)/g,
                 command: function(path, line) {
                     var tokenized_line = ditto.convert.tokenize(line)
-                    console.log(tokenized_line)
                     tokenized_line.shift()
                     
                     var line_to_write = "console.log("
@@ -126,9 +124,21 @@ module.exports = function(ditto) {
                 command: function(path, line) {
                     var tokenized_line = ditto.convert.tokenize(line)
                     var line_to_write = tokenized_line[1]
+
+                    //appending the content
                     fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write + ";\n")
                 }
             },
+            {
+                regex: /I use ".{1,}\.dit" as .{1,}/g,
+                command: function(path, line) {
+                    var tokenized_line = ditto.convert.tokenize(line)
+                    var line_to_write = "var " + tokenized_line.pop() + " = require(" + tokenized_line[2] + ");\n"
+
+                    //appending the content
+                    fs.writeFileSync(ditto.convert.getJsPath(path), fs.readFileSync(ditto.convert.getJsPath(path), "utf8") + line_to_write)
+                }
+            }
         ],
         compile: function(path) {
             //this absolute joy writes an empty build file in the same directory that's js and the same base name as the .dit file
@@ -140,7 +150,6 @@ module.exports = function(ditto) {
             //getting it's tab type before running anything else
             var tabtype
             if (data.indexOf("\t") !== -1) {
-                console.log
                 tabtype = "\t"
             } else {
                 tabtype = "\s\s\s\s"
