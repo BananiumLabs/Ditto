@@ -56,7 +56,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
-# self manual testing
-test.dit
-test.js
