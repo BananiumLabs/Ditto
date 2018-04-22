@@ -2,8 +2,8 @@
 Low level parsing and converting business
 */
 
-var fs = require("fs")
-var pathModule = require("path")
+var fs = require("fs");
+var pathModule = require("path");
 
 module.exports = function(ditto) {
     ditto.convert = {
