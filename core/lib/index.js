@@ -112,7 +112,7 @@ var ditto = {
             regex: /for [A-z_]{1}.{0,} in \d+ through \d+ do:/g,
             command: function(path, line) {
                 var tokenized_line = ditto.tokenize(line)
-                var line_to_write = "for (var " + tokenized_line[1] + " = " + tokenized_line[3] + "; " + tokenized_line[1] + "<" + tokenized_line[5] + ";" + tokenized_line[1] + "++) {\n"
+                var line_to_write = "for (var " + tokenized_line[1] + " = " + tokenized_line[3] + "; " + tokenized_line[1] + "<=" + tokenized_line[5] + ";" + tokenized_line[1] + "++) {\n"
 
                 //appending the content
                 fs.writeFileSync(ditto.getJsPath(path), fs.readFileSync(ditto.getJsPath(path), "utf8") + line_to_write)

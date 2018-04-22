@@ -13,5 +13,5 @@ call thisFunc(a)
 sum is 0
 
 for i in 0 through 10 do:
-    sum=sum+i
+    sum is sum+i
 write sum

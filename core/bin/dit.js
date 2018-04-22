@@ -13,7 +13,6 @@ program
     .description("Compiles into JS")
     .option("-j, --js", "Compile only to Javascript")
     .action(function (filepath, cmd) {
-        console.log(cmd.js)
         ditto.compile(filepath)
         if (cmd.js !== true) {
             ditto.JsToBinary()
